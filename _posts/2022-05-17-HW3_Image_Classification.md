@@ -1,5 +1,7 @@
-# Image Classification
-
+---
+layout: post
+title: Image Classification
+---
 In this blog post, you will learn several new skills and concepts related to image classification in Tensorflow.
 
 Tensorflow Datasets provide a convenient way for us to organize operations on our training, validation, and test data sets.
@@ -103,7 +105,7 @@ for images, labels in train_dataset.take(1):
 
 
     
-![png](HW3_Image_Classification_files/HW3_Image_Classification_2_0.png)
+![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_2_0.png?raw=true)
     
 
 Paste the following code into the next block. This is technical code related to rapidly reading data. 
@@ -246,7 +248,7 @@ plt.tight_layout()
 plt.show()
 ```
  
-![png](HW3_Image_Classification_files/HW3_Image_Classification_7_0.png)
+![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_7_0.png?raw=true)
     
 ## §3. Model with Data Augmentation
 Now we’re going to add some data augmentation layers to your model. Data augmentation refers to the practice of including modified copies of the same image in the training set. For example, a picture of a cat is still a picture of a cat even if we flip it upside down or rotate it 90 degrees. We can include such transformed versions of the image in our training process in order to help our model learn so-called invariant features of our input images.
@@ -356,7 +358,7 @@ plt.show()
 ```
 
     
-![png](HW3_Image_Classification_files/HW3_Image_Classification_10_0.png)
+![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_10_0.png?raw=true)
     
 ## §4. Data Preprocessing
 Sometimes, it can be helpful to make simple transformations to the input data. For example, in this case, the original data has pixels with RGB values between 0 and 255, but many models will train faster with RGB values normalized between 0 and 1, or possibly between -1 and 1. These are mathematically identical situations, since we can always just scale the weights. But if we handle the scaling prior to the training process, we can spend more of our training energy handling actual signal in the data and less energy having the weights adjust to the data scale.
@@ -473,8 +475,8 @@ plt.show()
 
 
     
-![png](HW3_Image_Classification_files/HW3_Image_Classification_13_0.png)
-    
+![png](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_13_0.png?raw=true)
+
 ## §5. Transfer Learning
 So far, we’ve been training models for distinguishing between cats and dogs from scratch. In some cases, however, someone might already have trained a model that does a related task, and might have learned some relevant patterns. For example, folks train machine learning models for a variety of image recognition tasks. Maybe we could use a pre-existing model for our task?
 
@@ -612,8 +614,7 @@ plt.show()
 
 
     
-![png](HW3_Image_Classification_files/HW3_Image_Classification_17_0.png)
-    
+![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_17_0.png?raw=true)
 
 ## §6. Score on Test Data
 Finally, we will evaluate the accuracy of our most performant model on the unseen test_dataset.
