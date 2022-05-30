@@ -80,31 +80,32 @@ You can get a piece of a data set using the take method; e.g. train_dataset.take
 Let’s briefly explore our data set. We will write a function to create a two-row visualization. In the first row, it shows three random pictures of cats. In the second row, it shows three random pictures of dogs. You can see some related code in the linked tutorial above, although you’ll need to make some modifications in order to separate cats and dogs by rows. A docstring is not required.
 
 ```python
-class_names = train_dataset.class_names
-plt.figure(figsize= (10, 6))
-for images, labels in train_dataset.take(1):
-    x = 0
-    for i in range(len(images)):
-        if(x < 3):
-            if(class_names[labels[i]] == "cats"):
-                ax = plt.subplot(2, 3, x + 1)
-                plt.imshow(images[i].numpy().astype("uint8"))
-                plt.title(class_names[labels[i]])
-                plt.axis("off")
-                x += 1
-        if(x >= 3):
-            if(class_names[labels[i]] == "dogs"):
-                ax = plt.subplot(2, 3, x + 1)
-                plt.imshow(images[i].numpy().astype("uint8"))
-                plt.title(class_names[labels[i]])
-                plt.axis("off")
-                x += 1
-        if(x >= 6):
-            break
+def plot_images(dataset):
+    class_names = dataset.class_names
+    plt.figure(figsize= (10, 6))
+    for images, labels in dataset.take(1):
+        x = 0
+        for i in range(len(images)):
+            if(x < 3):
+                if(class_names[labels[i]] == "cats"):
+                    ax = plt.subplot(2, 3, x + 1)
+                    plt.imshow(images[i].numpy().astype("uint8"))
+                    plt.title(class_names[labels[i]])
+                    plt.axis("off")
+                    x += 1
+            if(x >= 3):
+                if(class_names[labels[i]] == "dogs"):
+                    ax = plt.subplot(2, 3, x + 1)
+                    plt.imshow(images[i].numpy().astype("uint8"))
+                    plt.title(class_names[labels[i]])
+                    plt.axis("off")
+                    x += 1
+            if(x >= 6):
+                break
+plot_images(train_dataset)
 ```
 
 
-    
 ![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_2_0.png?raw=true)
     
 
@@ -171,61 +172,47 @@ history1 = model1.fit(train_dataset,
 ```
 
     Epoch 1/20
-    WARNING:tensorflow:AutoGraph could not transform <function Model.make_train_function.<locals>.train_function at 0x7f9734b78680> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    WARNING: AutoGraph could not transform <function Model.make_train_function.<locals>.train_function at 0x7f9734b78680> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    63/63 [==============================] - ETA: 0s - loss: 0.7079 - accuracy: 0.5470WARNING:tensorflow:AutoGraph could not transform <function Model.make_test_function.<locals>.test_function at 0x7f972335cef0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    WARNING: AutoGraph could not transform <function Model.make_test_function.<locals>.test_function at 0x7f972335cef0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    63/63 [==============================] - 35s 535ms/step - loss: 0.7079 - accuracy: 0.5470 - val_loss: 0.6774 - val_accuracy: 0.5173
+    63/63 [==============================] - 34s 522ms/step - loss: 0.7239 - accuracy: 0.5210 - val_loss: 0.6792 - val_accuracy: 0.6027
     Epoch 2/20
-    63/63 [==============================] - 35s 551ms/step - loss: 0.6524 - accuracy: 0.6285 - val_loss: 0.6267 - val_accuracy: 0.6621
+    63/63 [==============================] - 33s 517ms/step - loss: 0.6640 - accuracy: 0.6115 - val_loss: 0.6716 - val_accuracy: 0.6225
     Epoch 3/20
-    63/63 [==============================] - 33s 528ms/step - loss: 0.5786 - accuracy: 0.6925 - val_loss: 0.5996 - val_accuracy: 0.6757
+    63/63 [==============================] - 32s 499ms/step - loss: 0.6197 - accuracy: 0.6545 - val_loss: 0.6372 - val_accuracy: 0.6671
     Epoch 4/20
-    63/63 [==============================] - 33s 523ms/step - loss: 0.5231 - accuracy: 0.7280 - val_loss: 0.5706 - val_accuracy: 0.7178
+    63/63 [==============================] - 35s 549ms/step - loss: 0.5611 - accuracy: 0.7145 - val_loss: 0.6400 - val_accuracy: 0.6547
     Epoch 5/20
-    63/63 [==============================] - 33s 522ms/step - loss: 0.4772 - accuracy: 0.7755 - val_loss: 0.6102 - val_accuracy: 0.6782
+    63/63 [==============================] - 35s 561ms/step - loss: 0.4936 - accuracy: 0.7635 - val_loss: 0.6452 - val_accuracy: 0.6510
     Epoch 6/20
-    63/63 [==============================] - 34s 532ms/step - loss: 0.4682 - accuracy: 0.7765 - val_loss: 0.5785 - val_accuracy: 0.7030
+    63/63 [==============================] - 32s 500ms/step - loss: 0.4242 - accuracy: 0.8035 - val_loss: 0.6914 - val_accuracy: 0.6275
     Epoch 7/20
-    63/63 [==============================] - 33s 523ms/step - loss: 0.3899 - accuracy: 0.8115 - val_loss: 0.5788 - val_accuracy: 0.7030
+    63/63 [==============================] - 32s 511ms/step - loss: 0.3456 - accuracy: 0.8465 - val_loss: 0.6891 - val_accuracy: 0.6535
     Epoch 8/20
-    63/63 [==============================] - 39s 617ms/step - loss: 0.3351 - accuracy: 0.8500 - val_loss: 0.5841 - val_accuracy: 0.7042
+    63/63 [==============================] - 32s 506ms/step - loss: 0.2544 - accuracy: 0.8935 - val_loss: 0.7725 - val_accuracy: 0.6609
     Epoch 9/20
-    63/63 [==============================] - 33s 512ms/step - loss: 0.2985 - accuracy: 0.8655 - val_loss: 0.6399 - val_accuracy: 0.7153
+    63/63 [==============================] - 31s 488ms/step - loss: 0.2021 - accuracy: 0.9185 - val_loss: 0.8018 - val_accuracy: 0.6968
     Epoch 10/20
-    63/63 [==============================] - 33s 521ms/step - loss: 0.2528 - accuracy: 0.8850 - val_loss: 0.6150 - val_accuracy: 0.7067
+    63/63 [==============================] - 32s 499ms/step - loss: 0.1331 - accuracy: 0.9475 - val_loss: 0.9344 - val_accuracy: 0.6584
     Epoch 11/20
-    63/63 [==============================] - 40s 638ms/step - loss: 0.1931 - accuracy: 0.9255 - val_loss: 0.6555 - val_accuracy: 0.7017
+    63/63 [==============================] - 33s 516ms/step - loss: 0.0840 - accuracy: 0.9705 - val_loss: 1.0224 - val_accuracy: 0.6547
     Epoch 12/20
-    63/63 [==============================] - 37s 576ms/step - loss: 0.1419 - accuracy: 0.9520 - val_loss: 0.7351 - val_accuracy: 0.7092
+    63/63 [==============================] - 31s 488ms/step - loss: 0.0895 - accuracy: 0.9705 - val_loss: 1.0745 - val_accuracy: 0.6411
     Epoch 13/20
-    63/63 [==============================] - 36s 561ms/step - loss: 0.1245 - accuracy: 0.9565 - val_loss: 0.8713 - val_accuracy: 0.6720
+    63/63 [==============================] - 31s 495ms/step - loss: 0.0587 - accuracy: 0.9820 - val_loss: 1.1281 - val_accuracy: 0.6287
     Epoch 14/20
-    63/63 [==============================] - 44s 692ms/step - loss: 0.1324 - accuracy: 0.9515 - val_loss: 0.8127 - val_accuracy: 0.7005
+    63/63 [==============================] - 30s 473ms/step - loss: 0.0650 - accuracy: 0.9735 - val_loss: 1.0347 - val_accuracy: 0.6696
     Epoch 15/20
-    63/63 [==============================] - 38s 599ms/step - loss: 0.0940 - accuracy: 0.9715 - val_loss: 0.8818 - val_accuracy: 0.7116
+    63/63 [==============================] - 31s 496ms/step - loss: 0.0357 - accuracy: 0.9915 - val_loss: 1.2658 - val_accuracy: 0.6671
     Epoch 16/20
-    63/63 [==============================] - 41s 653ms/step - loss: 0.0905 - accuracy: 0.9685 - val_loss: 0.9293 - val_accuracy: 0.6658
+    63/63 [==============================] - 35s 550ms/step - loss: 0.0276 - accuracy: 0.9910 - val_loss: 1.3278 - val_accuracy: 0.6782
     Epoch 17/20
-    63/63 [==============================] - 36s 575ms/step - loss: 0.1072 - accuracy: 0.9600 - val_loss: 0.9416 - val_accuracy: 0.6931
+    63/63 [==============================] - 36s 563ms/step - loss: 0.0344 - accuracy: 0.9905 - val_loss: 1.0871 - val_accuracy: 0.6881
     Epoch 18/20
-    63/63 [==============================] - 39s 610ms/step - loss: 0.0716 - accuracy: 0.9740 - val_loss: 0.9191 - val_accuracy: 0.6844
+    63/63 [==============================] - 33s 518ms/step - loss: 0.0336 - accuracy: 0.9900 - val_loss: 1.2981 - val_accuracy: 0.6646
     Epoch 19/20
-    63/63 [==============================] - 32s 503ms/step - loss: 0.0475 - accuracy: 0.9825 - val_loss: 0.9916 - val_accuracy: 0.7265
+    63/63 [==============================] - 34s 531ms/step - loss: 0.0178 - accuracy: 0.9965 - val_loss: 1.5740 - val_accuracy: 0.6522
     Epoch 20/20
-    63/63 [==============================] - 34s 539ms/step - loss: 0.0430 - accuracy: 0.9860 - val_loss: 0.9663 - val_accuracy: 0.7228
+    63/63 [==============================] - 51s 805ms/step - loss: 0.0274 - accuracy: 0.9910 - val_loss: 1.2849 - val_accuracy: 0.6584
+
+
 
 My model stabilized between 68-73% accuracy. This is better than the baseline of 50% accuracy. However, considering the difference between training accuracy(~95%) and validation accuracy(~71%), it is clear
 that overfitting occured with this model.
@@ -234,25 +221,73 @@ We will now plot the model.
 
 
 ```python
-model_history = pd.DataFrame(history1.history)
-model_history['epoch'] = history1.epoch
-fig, ax = plt.subplots(1, figsize=(8,6))
-num_epochs = model_history.shape[0]
-
-ax.plot(np.arange(0, num_epochs), model_history["accuracy"], 
+def plot_model(history):
+    model_history = pd.DataFrame(history.history)
+    model_history['epoch'] = history.epoch
+    fig, ax = plt.subplots(1, figsize=(8,6))
+    num_epochs = model_history.shape[0]
+    ax.plot(np.arange(0, num_epochs), model_history["accuracy"], 
         label="Training Accuracy")
-ax.plot(np.arange(0, num_epochs), model_history["val_accuracy"], 
+    ax.plot(np.arange(0, num_epochs), model_history["val_accuracy"], 
         label="Validation Accuracy")
-ax.legend()
-plt.tight_layout()
-plt.show()
+    ax.legend()
+    plt.tight_layout()
+    plt.show()
+plot_model(history1)
 ```
- 
+
+
+    
 ![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_7_0.png?raw=true)
     
+    
 ## §3. Model with Data Augmentation
-Now we’re going to add some data augmentation layers to your model. Data augmentation refers to the practice of including modified copies of the same image in the training set. For example, a picture of a cat is still a picture of a cat even if we flip it upside down or rotate it 90 degrees. We can include such transformed versions of the image in our training process in order to help our model learn so-called invariant features of our input images.
+Now we’re going to add some data augmentation layers to your model. Data augmentation refers to the practice of including modified copies of the same image in the training set. For example, a picture of a cat is still a picture of a cat even if we flip it upside down or rotate it 90 degrees. We can include such transformed versions of the image in our training process in order to help our model learn so-called invariant features of our input images. Here are examples of randomflip and randomrotation layers.
 
+
+```python
+image,labels = next(iter(train_dataset))
+random_flip = tf.keras.Sequential([
+  tf.keras.layers.RandomFlip("horizontal_and_vertical", seed=.5)
+])
+plt.figure(figsize=(10, 3))
+ax = plt.subplot(1, 3, 1)
+plt.imshow(image[0,:,:,0])
+plt.axis("off")
+for i in range(2):
+    augmented_image = random_flip(image)
+    ax = plt.subplot(1, 3, i + 2)
+    plt.imshow(augmented_image[0,:,:,0])
+    plt.axis("off")
+```
+
+![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_8_0.png?raw=true)
+    
+
+
+```python
+image, label = next(iter(train_dataset))
+random_rotation = tf.keras.Sequential([
+   tf.keras.layers.RandomRotation(0.7, seed=1)
+])
+plt.figure(figsize=(10, 3))
+ax = plt.subplot(1, 3, 1)
+plt.imshow(image[0,:,:,0])
+plt.axis("off")
+for i in range(2):
+    augmented_image = random_rotation(image)
+    ax = plt.subplot(1, 3, i + 2)
+    plt.imshow(augmented_image[0,:,:,0])
+    plt.axis("off")
+    image = augmented_image
+```
+
+
+    
+![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_9_0.png?raw=true)
+    
+
+Now, we will create our model with the data augmentation layers. 
 
 ```python
 model2 = tf.keras.Sequential([
@@ -281,90 +316,66 @@ history2 = model2.fit(train_dataset,
 ```
 
     Epoch 1/20
-    WARNING:tensorflow:AutoGraph could not transform <function Model.make_train_function.<locals>.train_function at 0x7f972b7fa170> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    WARNING: AutoGraph could not transform <function Model.make_train_function.<locals>.train_function at 0x7f972b7fa170> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    63/63 [==============================] - ETA: 0s - loss: 0.7368 - accuracy: 0.5270WARNING:tensorflow:AutoGraph could not transform <function Model.make_test_function.<locals>.test_function at 0x7f972fbddcb0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    WARNING: AutoGraph could not transform <function Model.make_test_function.<locals>.test_function at 0x7f972fbddcb0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    63/63 [==============================] - 41s 625ms/step - loss: 0.7368 - accuracy: 0.5270 - val_loss: 0.7024 - val_accuracy: 0.4938
+    63/63 [==============================] - 38s 588ms/step - loss: 0.7398 - accuracy: 0.5180 - val_loss: 0.6914 - val_accuracy: 0.5297
     Epoch 2/20
-    63/63 [==============================] - 38s 604ms/step - loss: 0.6876 - accuracy: 0.5465 - val_loss: 0.6943 - val_accuracy: 0.4938
+    63/63 [==============================] - 36s 566ms/step - loss: 0.6922 - accuracy: 0.5365 - val_loss: 0.6874 - val_accuracy: 0.5755
     Epoch 3/20
-    63/63 [==============================] - 36s 570ms/step - loss: 0.6887 - accuracy: 0.5375 - val_loss: 0.6906 - val_accuracy: 0.5408
+    63/63 [==============================] - 35s 560ms/step - loss: 0.6891 - accuracy: 0.5400 - val_loss: 0.6922 - val_accuracy: 0.5074
     Epoch 4/20
-    63/63 [==============================] - 37s 588ms/step - loss: 0.6669 - accuracy: 0.5980 - val_loss: 0.6487 - val_accuracy: 0.5842
+    63/63 [==============================] - 34s 545ms/step - loss: 0.6918 - accuracy: 0.5140 - val_loss: 0.6863 - val_accuracy: 0.5198
     Epoch 5/20
-    63/63 [==============================] - 35s 560ms/step - loss: 0.6421 - accuracy: 0.6255 - val_loss: 0.6276 - val_accuracy: 0.6460
+    63/63 [==============================] - 34s 539ms/step - loss: 0.6905 - accuracy: 0.5195 - val_loss: 0.6888 - val_accuracy: 0.5483
     Epoch 6/20
-    63/63 [==============================] - 38s 597ms/step - loss: 0.6249 - accuracy: 0.6415 - val_loss: 0.6290 - val_accuracy: 0.6324
+    63/63 [==============================] - 34s 538ms/step - loss: 0.6918 - accuracy: 0.5405 - val_loss: 0.6890 - val_accuracy: 0.5210
     Epoch 7/20
-    63/63 [==============================] - 45s 712ms/step - loss: 0.6190 - accuracy: 0.6650 - val_loss: 0.6170 - val_accuracy: 0.6733
+    63/63 [==============================] - 41s 649ms/step - loss: 0.6846 - accuracy: 0.5395 - val_loss: 0.6869 - val_accuracy: 0.5520
     Epoch 8/20
-    63/63 [==============================] - 39s 611ms/step - loss: 0.6071 - accuracy: 0.6620 - val_loss: 0.6177 - val_accuracy: 0.6621
+    63/63 [==============================] - 37s 583ms/step - loss: 0.6722 - accuracy: 0.5825 - val_loss: 0.6740 - val_accuracy: 0.5941
     Epoch 9/20
-    63/63 [==============================] - 38s 605ms/step - loss: 0.5936 - accuracy: 0.6930 - val_loss: 0.5989 - val_accuracy: 0.6745
+    63/63 [==============================] - 39s 616ms/step - loss: 0.6674 - accuracy: 0.5980 - val_loss: 0.6689 - val_accuracy: 0.6114
     Epoch 10/20
-    63/63 [==============================] - 39s 610ms/step - loss: 0.5796 - accuracy: 0.6840 - val_loss: 0.6122 - val_accuracy: 0.6510
+    63/63 [==============================] - 40s 631ms/step - loss: 0.6619 - accuracy: 0.6065 - val_loss: 0.6543 - val_accuracy: 0.6200
     Epoch 11/20
-    63/63 [==============================] - 41s 653ms/step - loss: 0.5916 - accuracy: 0.6845 - val_loss: 0.5988 - val_accuracy: 0.6733
+    63/63 [==============================] - 37s 583ms/step - loss: 0.6435 - accuracy: 0.6385 - val_loss: 0.6700 - val_accuracy: 0.5903
     Epoch 12/20
-    63/63 [==============================] - 48s 762ms/step - loss: 0.5849 - accuracy: 0.6885 - val_loss: 0.5901 - val_accuracy: 0.6757
+    63/63 [==============================] - 33s 525ms/step - loss: 0.6319 - accuracy: 0.6470 - val_loss: 0.6381 - val_accuracy: 0.6188
     Epoch 13/20
-    63/63 [==============================] - 40s 634ms/step - loss: 0.5776 - accuracy: 0.6940 - val_loss: 0.6229 - val_accuracy: 0.6510
+    63/63 [==============================] - 33s 527ms/step - loss: 0.6093 - accuracy: 0.6720 - val_loss: 0.6422 - val_accuracy: 0.6349
     Epoch 14/20
-    63/63 [==============================] - 44s 695ms/step - loss: 0.5713 - accuracy: 0.7065 - val_loss: 0.5758 - val_accuracy: 0.7153
+    63/63 [==============================] - 34s 530ms/step - loss: 0.6163 - accuracy: 0.6575 - val_loss: 0.6118 - val_accuracy: 0.6460
     Epoch 15/20
-    63/63 [==============================] - 36s 563ms/step - loss: 0.5516 - accuracy: 0.7165 - val_loss: 0.6021 - val_accuracy: 0.6584
+    63/63 [==============================] - 33s 524ms/step - loss: 0.6184 - accuracy: 0.6635 - val_loss: 0.6117 - val_accuracy: 0.6671
     Epoch 16/20
-    63/63 [==============================] - 37s 578ms/step - loss: 0.5506 - accuracy: 0.7120 - val_loss: 0.5545 - val_accuracy: 0.7215
+    63/63 [==============================] - 34s 534ms/step - loss: 0.6047 - accuracy: 0.6700 - val_loss: 0.6219 - val_accuracy: 0.6547
     Epoch 17/20
-    63/63 [==============================] - 39s 615ms/step - loss: 0.5298 - accuracy: 0.7325 - val_loss: 0.6004 - val_accuracy: 0.6844
+    63/63 [==============================] - 33s 527ms/step - loss: 0.5825 - accuracy: 0.6890 - val_loss: 0.6096 - val_accuracy: 0.6287
     Epoch 18/20
-    63/63 [==============================] - 43s 682ms/step - loss: 0.5302 - accuracy: 0.7390 - val_loss: 0.5578 - val_accuracy: 0.7290
+    63/63 [==============================] - 40s 632ms/step - loss: 0.5730 - accuracy: 0.7075 - val_loss: 0.5977 - val_accuracy: 0.6708
     Epoch 19/20
-    63/63 [==============================] - 39s 619ms/step - loss: 0.5419 - accuracy: 0.7355 - val_loss: 0.5803 - val_accuracy: 0.6832
+    63/63 [==============================] - 40s 628ms/step - loss: 0.5772 - accuracy: 0.7005 - val_loss: 0.5810 - val_accuracy: 0.7042
     Epoch 20/20
-    63/63 [==============================] - 39s 617ms/step - loss: 0.5441 - accuracy: 0.7175 - val_loss: 0.5713 - val_accuracy: 0.6968
+    63/63 [==============================] - 38s 604ms/step - loss: 0.5531 - accuracy: 0.7270 - val_loss: 0.5828 - val_accuracy: 0.6968
+
 
 
 My model stabilized between 68-73% accuracy. This is pretty similar to model1. However, considering the difference between training accuracy(~72%) and validation accuracy(~71%), it is clear that there was less overfitting with this model.
 
 Now we will plot the accuracy of the model. 
 
-```python
-model_history = pd.DataFrame(history2.history)
-model_history['epoch'] = history2.epoch
-fig, ax = plt.subplots(1, figsize=(8,6))
-num_epochs = model_history.shape[0]
 
-ax.plot(np.arange(0, num_epochs), model_history["accuracy"], 
-        label="Training Accuracy")
-ax.plot(np.arange(0, num_epochs), model_history["val_accuracy"], 
-        label="Validation Accuracy")
-ax.legend()
-plt.tight_layout()
-plt.show()
+```python
+plot_model(history2)
 ```
 
+
     
-![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_10_0.png?raw=true)
+![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_12_0.png?raw=true)
     
+
 ## §4. Data Preprocessing
 Sometimes, it can be helpful to make simple transformations to the input data. For example, in this case, the original data has pixels with RGB values between 0 and 255, but many models will train faster with RGB values normalized between 0 and 1, or possibly between -1 and 1. These are mathematically identical situations, since we can always just scale the weights. But if we handle the scaling prior to the training process, we can spend more of our training energy handling actual signal in the data and less energy having the weights adjust to the data scale.
 
 The following code will create a preprocessing layer called preprocessor which we can slot into our model pipeline.
-
 
 ```python
 i = tf.keras.Input(shape=(160, 160, 3))
@@ -397,92 +408,66 @@ history3 = model3.fit(train_dataset,
 ```
 
     Epoch 1/20
-    WARNING:tensorflow:AutoGraph could not transform <function Model.make_train_function.<locals>.train_function at 0x7f972b7058c0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    WARNING: AutoGraph could not transform <function Model.make_train_function.<locals>.train_function at 0x7f972b7058c0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    63/63 [==============================] - ETA: 0s - loss: 0.7449 - accuracy: 0.5535WARNING:tensorflow:AutoGraph could not transform <function Model.make_test_function.<locals>.test_function at 0x7f972bd27c20> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    WARNING: AutoGraph could not transform <function Model.make_test_function.<locals>.test_function at 0x7f972bd27c20> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    63/63 [==============================] - 50s 778ms/step - loss: 0.7449 - accuracy: 0.5535 - val_loss: 0.6401 - val_accuracy: 0.6200
+    63/63 [==============================] - 34s 516ms/step - loss: 0.7111 - accuracy: 0.5330 - val_loss: 0.6820 - val_accuracy: 0.5606
     Epoch 2/20
-    63/63 [==============================] - 42s 669ms/step - loss: 0.6555 - accuracy: 0.5975 - val_loss: 0.6434 - val_accuracy: 0.6126
+    63/63 [==============================] - 33s 526ms/step - loss: 0.6574 - accuracy: 0.6040 - val_loss: 0.6599 - val_accuracy: 0.5347
     Epoch 3/20
-    63/63 [==============================] - 40s 631ms/step - loss: 0.6349 - accuracy: 0.6155 - val_loss: 0.6308 - val_accuracy: 0.6361
+    63/63 [==============================] - 33s 524ms/step - loss: 0.6324 - accuracy: 0.6395 - val_loss: 0.6204 - val_accuracy: 0.6225
     Epoch 4/20
-    63/63 [==============================] - 40s 629ms/step - loss: 0.6301 - accuracy: 0.6335 - val_loss: 0.6077 - val_accuracy: 0.6634
+    63/63 [==============================] - 33s 522ms/step - loss: 0.6240 - accuracy: 0.6470 - val_loss: 0.6166 - val_accuracy: 0.6757
     Epoch 5/20
-    63/63 [==============================] - 42s 667ms/step - loss: 0.6039 - accuracy: 0.6710 - val_loss: 0.6032 - val_accuracy: 0.6844
+    63/63 [==============================] - 33s 517ms/step - loss: 0.5966 - accuracy: 0.6700 - val_loss: 0.6020 - val_accuracy: 0.6856
     Epoch 6/20
-    63/63 [==============================] - 44s 696ms/step - loss: 0.5873 - accuracy: 0.6835 - val_loss: 0.6088 - val_accuracy: 0.6795
+    63/63 [==============================] - 33s 518ms/step - loss: 0.5857 - accuracy: 0.6795 - val_loss: 0.6056 - val_accuracy: 0.6683
     Epoch 7/20
-    63/63 [==============================] - 51s 809ms/step - loss: 0.5823 - accuracy: 0.6820 - val_loss: 0.5682 - val_accuracy: 0.6980
+    63/63 [==============================] - 33s 516ms/step - loss: 0.5816 - accuracy: 0.6920 - val_loss: 0.5681 - val_accuracy: 0.7017
     Epoch 8/20
-    63/63 [==============================] - 42s 660ms/step - loss: 0.5441 - accuracy: 0.7280 - val_loss: 0.5607 - val_accuracy: 0.7153
+    63/63 [==============================] - 33s 515ms/step - loss: 0.5687 - accuracy: 0.6970 - val_loss: 0.5792 - val_accuracy: 0.7017
     Epoch 9/20
-    63/63 [==============================] - 40s 637ms/step - loss: 0.5496 - accuracy: 0.6965 - val_loss: 0.5680 - val_accuracy: 0.6943
+    63/63 [==============================] - 33s 517ms/step - loss: 0.5581 - accuracy: 0.7200 - val_loss: 0.5753 - val_accuracy: 0.6968
     Epoch 10/20
-    63/63 [==============================] - 39s 623ms/step - loss: 0.5448 - accuracy: 0.7225 - val_loss: 0.5699 - val_accuracy: 0.6943
+    63/63 [==============================] - 32s 511ms/step - loss: 0.5248 - accuracy: 0.7350 - val_loss: 0.5593 - val_accuracy: 0.7141
     Epoch 11/20
-    63/63 [==============================] - 40s 629ms/step - loss: 0.5220 - accuracy: 0.7350 - val_loss: 0.5386 - val_accuracy: 0.7153
+    63/63 [==============================] - 32s 507ms/step - loss: 0.5292 - accuracy: 0.7300 - val_loss: 0.5706 - val_accuracy: 0.7030
     Epoch 12/20
-    63/63 [==============================] - 37s 588ms/step - loss: 0.5052 - accuracy: 0.7415 - val_loss: 0.5563 - val_accuracy: 0.7166
+    63/63 [==============================] - 32s 513ms/step - loss: 0.5144 - accuracy: 0.7445 - val_loss: 0.5365 - val_accuracy: 0.7252
     Epoch 13/20
-    63/63 [==============================] - 34s 534ms/step - loss: 0.5171 - accuracy: 0.7440 - val_loss: 0.5408 - val_accuracy: 0.7290
+    63/63 [==============================] - 33s 518ms/step - loss: 0.5247 - accuracy: 0.7360 - val_loss: 0.5564 - val_accuracy: 0.7265
     Epoch 14/20
-    63/63 [==============================] - 34s 540ms/step - loss: 0.4872 - accuracy: 0.7605 - val_loss: 0.5443 - val_accuracy: 0.7141
+    63/63 [==============================] - 32s 508ms/step - loss: 0.5094 - accuracy: 0.7575 - val_loss: 0.5548 - val_accuracy: 0.7290
     Epoch 15/20
-    63/63 [==============================] - 34s 543ms/step - loss: 0.5092 - accuracy: 0.7485 - val_loss: 0.5320 - val_accuracy: 0.7314
+    63/63 [==============================] - 32s 509ms/step - loss: 0.5099 - accuracy: 0.7440 - val_loss: 0.5758 - val_accuracy: 0.7067
     Epoch 16/20
-    63/63 [==============================] - 34s 538ms/step - loss: 0.4770 - accuracy: 0.7625 - val_loss: 0.5243 - val_accuracy: 0.7401
+    63/63 [==============================] - 33s 513ms/step - loss: 0.4959 - accuracy: 0.7595 - val_loss: 0.5674 - val_accuracy: 0.7104
     Epoch 17/20
-    63/63 [==============================] - 34s 540ms/step - loss: 0.4785 - accuracy: 0.7615 - val_loss: 0.5021 - val_accuracy: 0.7599
+    63/63 [==============================] - 32s 511ms/step - loss: 0.5005 - accuracy: 0.7475 - val_loss: 0.6096 - val_accuracy: 0.6671
     Epoch 18/20
-    63/63 [==============================] - 35s 548ms/step - loss: 0.4545 - accuracy: 0.7840 - val_loss: 0.5210 - val_accuracy: 0.7450
+    63/63 [==============================] - 32s 508ms/step - loss: 0.4881 - accuracy: 0.7670 - val_loss: 0.5290 - val_accuracy: 0.7302
     Epoch 19/20
-    63/63 [==============================] - 35s 561ms/step - loss: 0.4429 - accuracy: 0.7975 - val_loss: 0.5274 - val_accuracy: 0.7512
+    63/63 [==============================] - 32s 511ms/step - loss: 0.4705 - accuracy: 0.7795 - val_loss: 0.5141 - val_accuracy: 0.7525
     Epoch 20/20
-    63/63 [==============================] - 36s 574ms/step - loss: 0.4548 - accuracy: 0.7885 - val_loss: 0.5247 - val_accuracy: 0.7339
+    63/63 [==============================] - 33s 515ms/step - loss: 0.4597 - accuracy: 0.7875 - val_loss: 0.5209 - val_accuracy: 0.7450
+
 
 
 My model stabilized between 72-74% accuracy. This is better than the slightly better than model1. Considering the difference between training accuracy(~75%) and validation accuracy(~73%), it is clear that there was not much overfitting with this model.
 
 Now we will visualize the results.
 
-```python
-model_history = pd.DataFrame(history3.history)
-model_history['epoch'] = history3.epoch
-fig, ax = plt.subplots(1, figsize=(8,6))
-num_epochs = model_history.shape[0]
 
-ax.plot(np.arange(0, num_epochs), model_history["accuracy"], 
-        label="Training Accuracy")
-ax.plot(np.arange(0, num_epochs), model_history["val_accuracy"], 
-        label="Validation Accuracy")
-ax.legend()
-plt.tight_layout()
-plt.show()
+```python
+plot_model(history3)
 ```
 
-
+![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_15_0.png?raw=true)
     
-![png](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_13_0.png?raw=true)
-
 ## §5. Transfer Learning
 So far, we’ve been training models for distinguishing between cats and dogs from scratch. In some cases, however, someone might already have trained a model that does a related task, and might have learned some relevant patterns. For example, folks train machine learning models for a variety of image recognition tasks. Maybe we could use a pre-existing model for our task?
 
 To do this, we need to first access a pre-existing “base model”, incorporate it into a full model for our current task, and then train that model.
 
 Paste the following code in order to download MobileNetV2 and configure it as a layer that can be included in our model.
+
 
 
 ```python
@@ -496,22 +481,6 @@ i = tf.keras.Input(shape=IMG_SHAPE)
 x = base_model(i, training = False)
 base_model_layer = tf.keras.Model(inputs = [i], outputs = [x])
 ```
-
-    Model: "model_3"
-    _________________________________________________________________
-     Layer (type)                Output Shape              Param #   
-    =================================================================
-     input_7 (InputLayer)        [(None, 160, 160, 3)]     0         
-                                                                     
-     mobilenetv2_1.00_160 (Funct  (None, 5, 5, 1280)       2257984   
-     ional)                                                          
-                                                                     
-    =================================================================
-    Total params: 2,257,984
-    Trainable params: 0
-    Non-trainable params: 2,257,984
-    _________________________________________________________________
-
 Now, we will create the model.
 
 ```python
@@ -537,84 +506,61 @@ history4 = model4.fit(train_dataset,
 ```
 
     Epoch 1/20
-    WARNING:tensorflow:AutoGraph could not transform <function Model.make_train_function.<locals>.train_function at 0x7f9783c5b0e0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    WARNING: AutoGraph could not transform <function Model.make_train_function.<locals>.train_function at 0x7f9783c5b0e0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    63/63 [==============================] - ETA: 0s - loss: 0.4923 - accuracy: 0.9095WARNING:tensorflow:AutoGraph could not transform <function Model.make_test_function.<locals>.test_function at 0x7f97882a3dd0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    WARNING: AutoGraph could not transform <function Model.make_test_function.<locals>.test_function at 0x7f97882a3dd0> and will run it as-is.
-    Please report this to the TensorFlow team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output.
-    Cause: 'arguments' object has no attribute 'posonlyargs'
-    To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
-    63/63 [==============================] - 39s 569ms/step - loss: 0.4923 - accuracy: 0.9095 - val_loss: 0.0687 - val_accuracy: 0.9752
+    63/63 [==============================] - 38s 557ms/step - loss: 0.7410 - accuracy: 0.8960 - val_loss: 0.0707 - val_accuracy: 0.9777
     Epoch 2/20
-    63/63 [==============================] - 40s 639ms/step - loss: 0.2051 - accuracy: 0.9365 - val_loss: 0.0589 - val_accuracy: 0.9851
+    63/63 [==============================] - 34s 531ms/step - loss: 0.1442 - accuracy: 0.9400 - val_loss: 0.0525 - val_accuracy: 0.9777
     Epoch 3/20
-    63/63 [==============================] - 44s 680ms/step - loss: 0.1235 - accuracy: 0.9525 - val_loss: 0.0676 - val_accuracy: 0.9765
+    63/63 [==============================] - 34s 537ms/step - loss: 0.1246 - accuracy: 0.9510 - val_loss: 0.0549 - val_accuracy: 0.9814
     Epoch 4/20
-    63/63 [==============================] - 38s 601ms/step - loss: 0.1297 - accuracy: 0.9460 - val_loss: 0.0515 - val_accuracy: 0.9851
+    63/63 [==============================] - 33s 529ms/step - loss: 0.1328 - accuracy: 0.9415 - val_loss: 0.0552 - val_accuracy: 0.9790
     Epoch 5/20
-    63/63 [==============================] - 43s 689ms/step - loss: 0.0960 - accuracy: 0.9640 - val_loss: 0.0409 - val_accuracy: 0.9876
+    63/63 [==============================] - 33s 529ms/step - loss: 0.1010 - accuracy: 0.9645 - val_loss: 0.0600 - val_accuracy: 0.9802
     Epoch 6/20
-    63/63 [==============================] - 40s 636ms/step - loss: 0.0813 - accuracy: 0.9680 - val_loss: 0.0488 - val_accuracy: 0.9790
+    63/63 [==============================] - 34s 533ms/step - loss: 0.0855 - accuracy: 0.9640 - val_loss: 0.0546 - val_accuracy: 0.9777
     Epoch 7/20
-    63/63 [==============================] - 41s 645ms/step - loss: 0.0907 - accuracy: 0.9630 - val_loss: 0.0508 - val_accuracy: 0.9814
+    63/63 [==============================] - 33s 528ms/step - loss: 0.0803 - accuracy: 0.9690 - val_loss: 0.0505 - val_accuracy: 0.9814
     Epoch 8/20
-    63/63 [==============================] - 41s 655ms/step - loss: 0.0966 - accuracy: 0.9625 - val_loss: 0.0555 - val_accuracy: 0.9777
+    63/63 [==============================] - 33s 529ms/step - loss: 0.0815 - accuracy: 0.9695 - val_loss: 0.0546 - val_accuracy: 0.9752
     Epoch 9/20
-    63/63 [==============================] - 36s 568ms/step - loss: 0.0693 - accuracy: 0.9740 - val_loss: 0.0539 - val_accuracy: 0.9765
+    63/63 [==============================] - 34s 532ms/step - loss: 0.0738 - accuracy: 0.9695 - val_loss: 0.0525 - val_accuracy: 0.9790
     Epoch 10/20
-    63/63 [==============================] - 38s 597ms/step - loss: 0.0616 - accuracy: 0.9765 - val_loss: 0.0527 - val_accuracy: 0.9827
+    63/63 [==============================] - 34s 534ms/step - loss: 0.0833 - accuracy: 0.9640 - val_loss: 0.0526 - val_accuracy: 0.9777
     Epoch 11/20
-    63/63 [==============================] - 38s 593ms/step - loss: 0.0702 - accuracy: 0.9700 - val_loss: 0.0656 - val_accuracy: 0.9752
+    63/63 [==============================] - 33s 526ms/step - loss: 0.0645 - accuracy: 0.9730 - val_loss: 0.0403 - val_accuracy: 0.9864
     Epoch 12/20
-    63/63 [==============================] - 37s 584ms/step - loss: 0.0755 - accuracy: 0.9715 - val_loss: 0.0454 - val_accuracy: 0.9839
+    63/63 [==============================] - 34s 532ms/step - loss: 0.0670 - accuracy: 0.9715 - val_loss: 0.0561 - val_accuracy: 0.9777
     Epoch 13/20
-    63/63 [==============================] - 36s 569ms/step - loss: 0.0742 - accuracy: 0.9730 - val_loss: 0.0584 - val_accuracy: 0.9790
+    63/63 [==============================] - 34s 532ms/step - loss: 0.0609 - accuracy: 0.9740 - val_loss: 0.0512 - val_accuracy: 0.9814
     Epoch 14/20
-    63/63 [==============================] - 36s 571ms/step - loss: 0.0667 - accuracy: 0.9775 - val_loss: 0.0413 - val_accuracy: 0.9864
+    63/63 [==============================] - 33s 527ms/step - loss: 0.0689 - accuracy: 0.9755 - val_loss: 0.0527 - val_accuracy: 0.9839
     Epoch 15/20
-    63/63 [==============================] - 36s 569ms/step - loss: 0.0614 - accuracy: 0.9760 - val_loss: 0.0459 - val_accuracy: 0.9851
+    63/63 [==============================] - 33s 528ms/step - loss: 0.0638 - accuracy: 0.9740 - val_loss: 0.0477 - val_accuracy: 0.9864
     Epoch 16/20
-    63/63 [==============================] - 36s 563ms/step - loss: 0.0664 - accuracy: 0.9755 - val_loss: 0.0443 - val_accuracy: 0.9851
+    63/63 [==============================] - 34s 534ms/step - loss: 0.0644 - accuracy: 0.9735 - val_loss: 0.0320 - val_accuracy: 0.9864
     Epoch 17/20
-    63/63 [==============================] - 37s 587ms/step - loss: 0.0525 - accuracy: 0.9825 - val_loss: 0.0451 - val_accuracy: 0.9827
+    63/63 [==============================] - 33s 530ms/step - loss: 0.0520 - accuracy: 0.9800 - val_loss: 0.0386 - val_accuracy: 0.9851
     Epoch 18/20
-    63/63 [==============================] - 37s 589ms/step - loss: 0.0612 - accuracy: 0.9770 - val_loss: 0.0407 - val_accuracy: 0.9851
+    63/63 [==============================] - 33s 529ms/step - loss: 0.0446 - accuracy: 0.9845 - val_loss: 0.0505 - val_accuracy: 0.9802
     Epoch 19/20
-    63/63 [==============================] - 36s 577ms/step - loss: 0.0369 - accuracy: 0.9840 - val_loss: 0.0479 - val_accuracy: 0.9802
+    63/63 [==============================] - 33s 529ms/step - loss: 0.0379 - accuracy: 0.9840 - val_loss: 0.0401 - val_accuracy: 0.9827
     Epoch 20/20
-    63/63 [==============================] - 36s 573ms/step - loss: 0.0364 - accuracy: 0.9865 - val_loss: 0.0467 - val_accuracy: 0.9901
+    63/63 [==============================] - 33s 528ms/step - loss: 0.0582 - accuracy: 0.9790 - val_loss: 0.0549 - val_accuracy: 0.9752
 
-My model stabilized between 98-99% accuracy. This is much better accuracy than model1. Considering the difference between training accuracy(~98%) and validation accuracy(~99%), it is clear that there was little overfitting with this model.
+
+
+My model stabilized between 97-99% accuracy. This is much better accuracy than model1. Considering the difference between training accuracy(~98%) and validation accuracy(~98%), it is clear that there was little overfitting with this model
 
 Now, we will plot the results.
 
-```python
-model_history = pd.DataFrame(history4.history)
-model_history['epoch'] = history4.epoch
-fig, ax = plt.subplots(1, figsize=(8,6))
-num_epochs = model_history.shape[0]
 
-ax.plot(np.arange(0, num_epochs), model_history["accuracy"], 
-        label="Training Accuracy")
-ax.plot(np.arange(0, num_epochs), model_history["val_accuracy"], 
-        label="Validation Accuracy")
-ax.legend()
-plt.tight_layout()
-plt.show()
+```python
+plot_model(history4)
 ```
 
 
     
-![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_17_0.png?raw=true)
+![](https://github.com/jameswest25/jameswest25.github.io/blob/master/images/HW3_Image_Classification_files/HW3_Image_Classification_19_0.png?raw=true)
+    
 
 ## §6. Score on Test Data
 Finally, we will evaluate the accuracy of our most performant model on the unseen test_dataset.
@@ -623,12 +569,12 @@ Finally, we will evaluate the accuracy of our most performant model on the unsee
 model4.evaluate(test_dataset)
 ```
 
-    6/6 [==============================] - 3s 417ms/step - loss: 0.0395 - accuracy: 0.9896
+    6/6 [==============================] - 3s 395ms/step - loss: 0.0776 - accuracy: 0.9583
 
 
 
 
 
-    [0.039489660412073135, 0.9895833134651184]
+    [0.0775797963142395, 0.9583333134651184]
 
-
+Now, you have created an accurate Image Classification model. Congrats!
