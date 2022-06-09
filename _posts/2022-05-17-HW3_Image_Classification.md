@@ -214,7 +214,7 @@ history1 = model1.fit(train_dataset,
 
 
 
-My model stabilized between 68-73% accuracy. This is better than the baseline of 50% accuracy. However, considering the difference between training accuracy(~95%) and validation accuracy(~71%), it is clear
+**My model stabilized between 68-73% accuracy.** This is better than the baseline of 50% accuracy. However, considering the difference between training accuracy(~95%) and validation accuracy(~71%), it is clear
 that overfitting occured with this model.
 
 We will now plot the model. 
@@ -358,7 +358,7 @@ history2 = model2.fit(train_dataset,
 
 
 
-My model stabilized between 68-73% accuracy. This is pretty similar to model1. However, considering the difference between training accuracy(~72%) and validation accuracy(~71%), it is clear that there was less overfitting with this model.
+**My model stabilized between 68-73% accuracy.** This is pretty similar to model1. However, considering the difference between training accuracy(~72%) and validation accuracy(~71%), it is clear that there was less overfitting with this model.
 
 Now we will plot the accuracy of the model. 
 
@@ -450,7 +450,7 @@ history3 = model3.fit(train_dataset,
 
 
 
-My model stabilized between 72-74% accuracy. This is better than the slightly better than model1. Considering the difference between training accuracy(~75%) and validation accuracy(~73%), it is clear that there was not much overfitting with this model.
+**My model stabilized between 72-74% accuracy.** This is better than the slightly better than model1. Considering the difference between training accuracy(~75%) and validation accuracy(~73%), it is clear that there was not much overfitting with this model.
 
 Now we will visualize the results.
 
@@ -548,7 +548,7 @@ history4 = model4.fit(train_dataset,
 
 
 
-My model stabilized between 97-99% accuracy. This is much better accuracy than model1. Considering the difference between training accuracy(~98%) and validation accuracy(~98%), it is clear that there was little overfitting with this model
+**My model stabilized between 97-99% accuracy.** This is much better accuracy than model1. Considering the difference between training accuracy(~98%) and validation accuracy(~98%), it is clear that there was little overfitting with this model
 
 Now, we will plot the results.
 
